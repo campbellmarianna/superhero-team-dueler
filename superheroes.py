@@ -18,7 +18,7 @@ class Hero:
             # attack(self)
             totalOfAttacks += ability.attack()
             # name of variable you assigned in the loop
-            return totalOfAttacks
+        return totalOfAttacks
 
 
 class Ability:
@@ -54,7 +54,7 @@ class Weapon(Ability):
 
 
 class Team:
-    def init(self, team_name):
+    def __init__(self, team_name):
         """Instantiate resources."""
         self.name = team_name
         self.heroes = list()
@@ -68,9 +68,13 @@ class Team:
         Remove hero from heroes list.
         If Hero isn't found return 0.
         """
-        self.heroes.remove(self.Hero.name)
-        if Hero == ValueError:
-            return 0
+        # self.heroes.remove(name)
+        # if Hero in self.hero == ValueError:
+        #     return 0
+        # Doing something else:
+        for i, o in enumerate(self.heroes):
+            if Hero == 0:
+                return 0
 
     def view_all_heroes(self):
         """Print out all heroes to the console."""
