@@ -34,16 +34,21 @@ class Hero:
 
     def defend(self):
         """
-        This method should run the defend method on each piece of armor and calculate the total defense.
-        If the hero's health is 0, the hero is out of play and should return 0 defense points.
+        This method should calculate the defense attribute from each piece of armor in the hero's list, and add to the total defense.
+        NOTE: If the hero's health is 0, the hero is out of play and should return 0 defense points.
         """
+
+        # Before anything, check or validate the hero's health
         totalDefense = 0
-        defensePoints = 0
+        # if self.health <= 0:
+        #     return totalDefense
+
         for armor in self.armors:
-            totalDefense += armor.defend()
-        return totalDefense
-        # if hero.health == 0:
-        #     return defensePoints = 0
+            totalDefense += armor.defense # <--- this is an attribute/property of Amor class
+            print("Total defense: {}".format(totalDefense))
+            # print(type(totalDefense) is int)
+        return int(totalDefense) # <------- Should be an Int
+        # print("This is the total hero defense: {}".format(totalDefense))
 
     def take_damage(self, damage_amt):
         """
@@ -51,6 +56,7 @@ class Hero:
 
         If the hero dies update number of deaths
         """
+        # damage amount is an integar
         damage_amt -= self.health
         if self.deaths >= 1:
             self.death += 1
@@ -98,7 +104,7 @@ class Team:
         """Instantiate resources."""
         self.name = team_name
         self.heroes = list()
-
+        # self.num_kills = 0
     def add_hero(self, Hero):
         """Add Hero object to heroes list."""
         self.heroes.append(Hero)
@@ -150,15 +156,15 @@ class Team:
 
         It should call add_kill() on each hero with the number of kills made.
         """
-        totalAttackStrengths = 0
+        totalTeamAttackStrengths = 0
+        # num_kills = 0
         for hero in self.heroes:
-            for ability in hero.abilities:
-                totalAttackStrengths += ability.attack_strength
-        print(totalAttackStrengths)
-        self.defend(other_team)
+                totalTeamAttackStrengths += hero.attack()
+        # return totalTeamAttackStrengths
+        num_kills = other_team.defend(totalTeamAttackStrengths)
         for hero in self.heroes:
             if num_kills >= 1:
-                add_kill()
+                hero.add_kill(num_kills)
 
     def defend(self, damage_amt):
         """
@@ -167,14 +173,17 @@ class Team:
 
         Return the number of heroes that died in attack.
         """
-        teamTotalDefense = 0
+        totalTeamDefense = 0
+        excessDamage = 0
         for hero in self.heroes:
-             for armor in hero.armors:
-                 teamTotalDefense += len(armor)
+            for armor in hero.armors:
+                totalTeamDefense += armor.defense
 
-        % remainder variable.deal_damage()
-
-        t
+        for hero in self.heroes:
+            for ability in hero.abilities:
+                damage_amt += hero.ability.attack_strength
+        excessDamage = damage_amt - totalTeamDefense
+        return self.deal_damage(excessDamage)
 
     def deal_damage(self, damage):
         """
@@ -184,17 +193,19 @@ class Team:
         divisionOfDamage = damage // len(self.heroes)
         numHerosDiedInAttack = 0
         for hero in self.heroes:
-            hero.health += divisionOfDamage
-            if hero.health <= 0:
-                numHerosDiedInAttack += 1
-            return numHerosDiedInAttack
+            if hero.health > 0:
+                hero.health -= divisionOfDamage
+                if hero.health <= 0:
+                    numHerosDiedInAttack += 1
+                    hero.deaths += 1
+        return numHerosDiedInAttack
 
-    def revive_heroes(self, health=100):
+    def revive_heroes(self):
         """
         This method should reset all heroes health to their original starting value.
         """
         for hero in self.heroes:
-            hero.health = health
+            hero.health = hero.start_health
 
     def stats(self):
         """
@@ -230,31 +241,11 @@ class Armor:
 # Testing Code
 if __name__ == "__main__":
     hero = Hero("Wonder Woman")
-    print(hero.name)
-    print("You have created a hero.".format(hero.name))
-    print(hero.attack())
+    print("You have created a hero: {}".format(hero.name))
     # Create an ability
     ability = Ability("Divine Speed", 300)
     # Add the ability to the hero
     hero.add_ability(ability)
-    # print("You have created an new ability (check properties of a ability).")
-    # print("Number of Attacks: {}".format(hero.attack()))
-    print(hero.attack())
-    new_ability = Ability("Super Human Strength", 800)
-    # print("You have created another ability.")
-    hero.add_ability(new_ability)
-    #print("You have added your ability to your hero.")
-    print(hero.attack())
-    # print("Now that you have added another ability the attack strength should be larger than before.")
-    # print("Number of Attacks: {}".format(hero.attack()))
-    team = Team("One")
-    jodie = Hero("Jodie Foster")
-    print(jodie.name)
-    team.add_hero(jodie)
-    assert team.heroes[0].name == "Jodie Foster"
-    team.remove_hero(jodie.name)
-    print(len(team.heroes))
-    # assert len(team.heroes) == 0
-    team = Team("One")
-    assert team.remove_hero("Athena") == 0
-    print(team)
+    armor = Armor("Laser Shield", 28)
+    hero.add_armor(armor)
+    print("Defense Value: {}".format(hero.defend()))
