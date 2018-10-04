@@ -237,7 +237,7 @@ class Armor:
         """
         return random.randint(0, self.defense)
 
-class Arena(Team):
+class Arena(Hero, Team):
     def __init__(self):
         """
         Declare variables
@@ -249,8 +249,22 @@ class Arena(Team):
         """
         This method should allow a user to build team one.
         """
-        self.team_one = raw_input("What is the name of the first team? ")
+        print("Hi Friend! Welcome to Superheroes!!!")
+        print("Make two teams to play!")
+        # print("What will name of the first team be?")
+        print("To build a team you need and heroes and a team name.")
+        print("Later on, you will be able to add cool features to your heroes!")
+        print("We'll get into those details later.")
 
+        # Create Hero 1
+        name = input("Who will your first hero be?")
+        hero1_health = 100
+        hero1 = Hero(name, hero1_health)
+
+        self.team_one.add_hero(hero1)
+        # self.team_one.team_name = raw_input("What is the name of the first team? ")
+
+        # team_one = Team()
     def build_team_two(self):
         """
         This method should allow user to build team two.
@@ -282,6 +296,6 @@ class Arena(Team):
 if __name__ == "__main__":
     arena = Arena()
     arena.build_team_one()
-    arena.build_team_two()
-    arena.team_battle()
-    arena.show_stats()
+    # arena.build_team_two()
+    # arena.team_battle()
+    # arena.show_stats()
