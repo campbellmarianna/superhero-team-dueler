@@ -45,7 +45,7 @@ class Hero:
 
         for armor in self.armors:
             totalDefense += armor.defense # <--- this is an attribute/property of Amor class
-            print("Total defense: {}".format(totalDefense))
+            # print("Total defense: {}".format(totalDefense))
             # print(type(totalDefense) is int)
         return int(totalDefense) # <------- Should be an Int
         # print("This is the total hero defense: {}".format(totalDefense))
@@ -237,15 +237,51 @@ class Armor:
         """
         return random.randint(0, self.defense)
 
+class Arena(Team):
+    def __init__(self):
+        """
+        Declare variables
+        """
+        self.team_one = None
+        self.team_two = None
 
-# Testing Code
+    def build_team_one(self):
+        """
+        This method should allow a user to build team one.
+        """
+        self.team_one = raw_input("What is the name of the first team? ")
+
+    def build_team_two(self):
+        """
+        This method should allow user to build team two.
+        """
+
+    def team_battle(self):
+        """
+        This method should continue to battle teams until one or both teams are dead.
+        """
+
+    def show_stats(self):
+        """
+        This method should print out the battle statistics including each heroes kill/death ratio.
+        """
+
+# Testing Code - hero and battle test
+# if __name__ == "__main__":
+#     hero = Hero("Wonder Woman")
+#     print("You have created a hero: {}".format(hero.name))
+#     # Create an ability
+#     ability = Ability("Divine Speed", 300)
+#     # Add the ability to the hero
+#     hero.add_ability(ability)
+#     armor = Armor("Laser Shield", 28)
+#     hero.add_armor(armor)
+#     print("Defense Value: {}".format(hero.defend()))
+
+# Testing Code - arena test
 if __name__ == "__main__":
-    hero = Hero("Wonder Woman")
-    print("You have created a hero: {}".format(hero.name))
-    # Create an ability
-    ability = Ability("Divine Speed", 300)
-    # Add the ability to the hero
-    hero.add_ability(ability)
-    armor = Armor("Laser Shield", 28)
-    hero.add_armor(armor)
-    print("Defense Value: {}".format(hero.defend()))
+    arena = Arena()
+    arena.build_team_one()
+    arena.build_team_two()
+    arena.team_battle()
+    arena.show_stats()
