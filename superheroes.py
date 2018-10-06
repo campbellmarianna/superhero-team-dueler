@@ -17,7 +17,6 @@ class Hero:
         # Append ability to self.abilities
         self.abilities.append(ability)
 
-    #Add Armor function
     def add_armor(self, armor):
         # Append armor
         self.armors.append(armor)
@@ -245,26 +244,77 @@ class Arena(Hero, Team):
         self.team_one = None
         self.team_two = None
 
+    # Helper Functions:
+    def build_abilities_list(self):
+        # Return an ability and append ability
+        abilities = [
+            "Alien Attack",
+            "Science",
+            "Star Power",
+            "Immortality",
+            "Grandmas Cookies",
+            "Blinding Strength"]
+        # Get one abilitiy out of the list
+        index = random.randint(0, len(abilities) - 1)
+        one_ability = abilities[index]
+        return one_ability
+        # hero.add_ability(one_ability) # <-- Doing this in create_hero
+
+    def build_armors_list(self):
+        armors = [
+            "Calculator",
+            "Laser Shield",
+            "Invisibility",
+            "SFPD Strike Force",
+            "Social Workers"]
+        # Get one armor out of the list
+        index = random.randint(0, len(armors) - 1)
+        one_armor = armors[index]
+        return one_armor
+
+    def create_hero(self):
+        heroes = [
+            "Athena",
+            "Jodie Foster",
+            "Wonder Woman"]
+        index = random.randint(0, len(heroes) - 1)
+        hero_name = heroes[index]
+        hero = Hero(hero_name)
+        # Ask how many abilities does the hero have then build that many abilities
+        abilites_number = int(input("How many abilities do you want your hero {} to have? ".format(hero.name)))
+        # However many abilities the user wants the hero get the ability and add to the heros list of abilities that many times
+        for _ in range(0, abilites_number):
+            ability = self.build_abilities_list()
+            hero.add_ability(ability)
+        print(hero.armors)
+        # Ask How many armor
+        armors_number = int(input("How many armor do you want your hero {} to have? ".format(hero.name)))
+        # However many armor the user wants the hero get the ability and add to the heros list of armor that many times
+        for _ in range(0, armors_number):
+            hero.add_armor(self.build_armors_list())
+        # After you have created a hero object and set values to the hero's properties add the hero the team's list of heroes
+        print(hero.armors)
+
     def build_team_one(self):
+        # Create integar validator function
+        # Create string validator function
         """
         This method should allow a user to build team one.
         """
         print("Hi Friend! Welcome to Superheroes!!!")
-        print("Make two teams to play!")
-        # print("What will name of the first team be?")
-        print("To build a team you need and heroes and a team name.")
-        print("Later on, you will be able to add cool features to your heroes!")
-        print("We'll get into those details later.")
+        print("Build your team!")
+        team_name = input("What will the name of your team be? ")
+        """
+        Make sure the user gives you a string of words for team name
+        if team_name not "":
+            print("Give your team name a word or two.")
+        """
+        team_one = Team(team_name)
+        hero_number = int(input("Out of 1 to 5 how many heroes would you like to have? "))
+        for _ in range(0, hero_number):
+            # every time I create a hero apppend that hero to the team
+            team_one.add_hero(self.create_hero())
 
-        # Create Hero 1
-        name = input("Who will your first hero be?")
-        hero1_health = 100
-        hero1 = Hero(name, hero1_health)
-
-        self.team_one.add_hero(hero1)
-        # self.team_one.team_name = raw_input("What is the name of the first team? ")
-
-        # team_one = Team()
     def build_team_two(self):
         """
         This method should allow user to build team two.

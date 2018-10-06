@@ -1,3 +1,4 @@
+import random
 # Reference Code: https://www.youtube.com/watch?v=Cn7AkDb4pIU
 # Parent Class
 # Super Class
@@ -27,6 +28,11 @@ class C(A,B):
     def feature_5(self):
         print("Feature 5 working")
 
+heroes = [
+    "Athena",
+    "Jodie Foster",
+    "Wonder Woman"]
+
 # A way you can access the class is with the help of object
 a1 = A()
 b1 = B()
@@ -36,3 +42,7 @@ a1.feature_1()
 a1.feature_2()
 
 c1.feature_3()
+
+name_of_hero = random.randint(0, 4)
+# print(heroes[name_of_hero])
+print(heroes[name_of_hero])
