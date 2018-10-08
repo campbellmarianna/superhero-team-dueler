@@ -33,6 +33,8 @@ heroes = [
     "Jodie Foster",
     "Wonder Woman"]
 
+attack_strength = random.randint(0, 600)
+
 # A way you can access the class is with the help of object
 a1 = A()
 b1 = B()
@@ -45,4 +47,7 @@ c1.feature_3()
 
 name_of_hero = random.randint(0, 4)
 # print(heroes[name_of_hero])
-print(heroes[name_of_hero])
+# print(heroes[name_of_hero])
+
+print(len(heroes))
+print(attack_strength)
