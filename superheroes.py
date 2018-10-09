@@ -218,22 +218,18 @@ class Team:
         This data must be output to the terminal.
         """
         print(self.name)
-        print("{} had a kill/death ratio of {}/{}".format(hero.name, hero.kills, hero.deaths)
-        # Another Way to Do it!
-        # running_stats = True
-
+        for hero in self.heroes:
+            print("{} had a kill/death ratio of {}/{}".format(hero.name, hero.kills, hero.deaths))
+        # Another Way to Do it! - Error Handling: try catch function
         # while True:
         #     try:
         #         for hero in self.heroes:
         #             ratio = hero.kills/hero.deaths
         #             print("winner")
-        #             # print("{}Aquaman had a kill/death ratio of {}/{}".format(hero.name, hero.kills, hero.deaths)
+        #             # print("{}/s ratio of kills/deaths is {}".format(hero.name, (hero.kills/hero.deaths)))
         #     except ZeroDivisionError:
         #         print("hero had a kill/death ratio of infinity! Hero did not die and scored X kills")
         #         break
-                # print("{}/s ratio of kills/deaths is {}".format(hero.name, (hero.kills/hero.deaths)))
-
-
 
 
     def update_kills(self):
@@ -441,7 +437,7 @@ class Arena(Hero, Team):
         This method should print out the battle statistics including each heroes kill/death ratio.
         """
         self.team_one.stats()
-        #self.team_two.stats()
+        self.team_two.stats()
 
 # Testing Code - hero and battle test
 # if __name__ == "__main__":
@@ -456,9 +452,44 @@ class Arena(Hero, Team):
 #     print("Defense Value: {}".format(hero.defend()))
 
 # Testing Code - arena test
+# if __name__ == "__main__":
+#     arena = Arena()
+#     arena.build_team_one()
+#     arena.build_team_two()
+#     arena.team_battle()
+#     arena.show_stats()
+
+# We want are code to be modular. We should be able to import our code in other projects without any issues.
+# Python gives us a way to check where our code is being run with the built-in variable __name__ which will come in handy.
+# We use this conditional, so that we only run this code while in this file
 if __name__ == "__main__":
+    # created a variable and assigned a boolean value
+    game_is_running = True
+
+    # Instantiate Game Arena - Object
     arena = Arena()
+
+    # Build Teams
+    # calling a method
     arena.build_team_one()
     arena.build_team_two()
-    arena.team_battle()
-    arena.show_stats()
+
+    # while condition is true run this code
+    while game_is_running:
+        # teams battle
+        arena.team_battle()
+        # show kill/death ratio of each hero
+        arena.show_stats()
+        # After game ask user do they want to play again
+        play_again = input("Play Again? Y or N: ")
+
+        # Check for Player Input
+        # if the user does not want to play again stop the game loop
+        if play_again.lower() == "n":
+            game_is_running = False
+
+        else:
+            # Revive heroes to play again
+            # call function that resets all heroes to original value health 
+            arena.team_one.revive_heroes()
+            arena.team_two.revive_heroes()
