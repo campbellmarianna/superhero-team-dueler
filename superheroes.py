@@ -489,7 +489,12 @@ if __name__ == "__main__":
             game_is_running = False
 
         else:
-            # Revive heroes to play again
-            # call function that resets all heroes to original value health 
-            arena.team_one.revive_heroes()
-            arena.team_two.revive_heroes()
+            recreate_teams = input("Do you want new teams? (Y/N)")
+            if recreate_teams.lower() == "y":
+                arena.build_team_one()
+                arena.build_team_two()
+            else:
+                # Revive heroes to play again
+                # call function that resets all heroes to original value health
+                arena.team_one.revive_heroes()
+                arena.team_two.revive_heroes()
